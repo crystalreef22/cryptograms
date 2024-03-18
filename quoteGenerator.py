@@ -1,5 +1,6 @@
 import requests
 import json
+import signal, sys
 
 QUOTE_FILE = "quoteList.json"
 CURRENT_QUOTE_FILE = "currentQuote"
@@ -73,10 +74,12 @@ def init():
     quotes = readQuotes()
     currentQuoteIndex = readCurrentQuoteIndex()
 
-def close():
-    '''ALWAYS RUN before quitting program'''
-
+def closeHandler(*args):
+    '''automatically runs before quitting program- clean up stuff'''
+    print("\nWriting quote index:", currentQuoteIndex)
+    print("Bye!")
     writeCurrentQuoteIndex(currentQuoteIndex)
+    sys.exit()
 
 if __name__ == "__main__":
     init()
@@ -93,3 +96,8 @@ if __name__ == "__main__":
 #     downloadQuotes()
 # except requests.exceptions.RequestException as x: 
 #     print("Exception: ", x) 
+
+
+
+signal.signal(signal.SIGTERM, closeHandler)
+signal.signal(signal.SIGINT, closeHandler)
