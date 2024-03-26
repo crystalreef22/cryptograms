@@ -1,5 +1,6 @@
 {
     "files": [
+        "TextRd.qml",
         "main.py",
         "main.qml"
     ]
