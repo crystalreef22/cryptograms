@@ -1,6 +1,5 @@
 import random
 
-letters = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
 
 
 class Encoded:
@@ -32,11 +31,14 @@ class AristocratEncoder(Encoder):
     def format(self, plaintext):
         return plaintext.lower()
 
-    def encrypt(self,plaintext, keyword = None, K = 1):
-        if keyword == None:
+    def encrypt(self,plaintext, key = None, keyType = 'K1'):
+        if key == None:
             key = random.sample(self.LETTERS, len(self.LETTERS))
         else:
-            raise NotImplementedError("TODO: Implement keywords and K123 for monoalphabetic substitution")
+            if keyType == 'K1':
+                pass
+            else:
+                raise NotImplementedError("Only K1 is supported at this moment")
         
         plaintextL = list(plaintext.upper())
         ciphertextL = plaintextL
@@ -70,11 +72,14 @@ class PatristocratEncoder(Encoder):
 
         return ''.join(p)
     
-    def encrypt(self, plaintext, keyword = None, K = 1):
-        if keyword == None:
+    def encrypt(self, plaintext, key = None):
+        if key == None:
             key = random.sample(self.LETTERS, len(self.LETTERS))
         else:
-            raise NotImplementedError("TODO: Implement keywords and K123 for monoalphabetic substitution")
+            if keyType == 'K1':
+                pass
+            else:
+                raise NotImplementedError("Only K1 is supported at this moment")
 
         key = random.sample(self.LETTERS, len(self.LETTERS))
         plaintextL = list(self.format(plaintext).upper())
@@ -98,21 +103,53 @@ class BaconianEncoder(Encoder):
         plaintextL = list(self.format(plaintext).upper())
         ciphertext = []
         for ch in plaintextL:
-            x = self.LETTERS.index(ch)
-            if x > 20:
+            x = self.LETTERS.index(ch) # letters to numbers
+            if x > 20: # u = v; i = j
                 x -= 2
             elif x > 8:
                 x-= 1
 
-            x = format(x, '05b')
+            x = format(x, '05b') # Convert all letters to binary
             y = []
             for i in range(len(x)):
-                y.append(x[i].replace('0', aVal()).replace('1', bVal()))
+                y.append(x[i].replace('0', aVal()).replace('1', bVal())) # replace 0 with random a and 1 with random b
             ciphertext.append(''.join(y))
         return ' '.join(ciphertext)
         # Such unreadable bodgecode...
 
 
+class keyWordGenerator:
+    # List used for all letters
+    LETTERS = tuple("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+
+    def __init__(self, wordListFile):
+        with open(wordListFile, 'r') as f:
+            self.wordList = f.read().splitlines()
+
+        self.current = random.choice(self.wordList)
+
+    def nextWord(self):
+        return random.choice(self.wordList)
+
+    def next(self):
+        self.current = "A"*30
+        while len(self.current) > 26:
+            self.current = random.choice(self.wordList).upper()
+
+        key = list(self.LETTERS)
+        currentWord = []
+        for ch in self.current:
+            try:
+                del key[key.index(ch)]
+            except ValueError:
+                pass
+            else:
+                currentWord.append(ch)
+        
+        insertionIndex = random.randint(0, len(key) - 1)
+        key[insertionIndex:insertionIndex] = currentWord
+        return key
+    
 
 
 if __name__ == "__main__":
