@@ -2,10 +2,13 @@
 import signal, sys
 import time
 import quoteGenerator as qg
-import txtEncoder
+import txtEncoder as te
 
 
 qg.init() #Ideally, I should make this a class
+
+aristocrat = te.AristocratEncoder()
+kg = te.keyWordGenerator("./commonWordList.txt")
 
 while True:
     q = qg.getNextQuote()
@@ -13,10 +16,12 @@ while True:
     author = q['a']
     del q
 
-    ciphertext = txtEncoder.aristocrat(plaintext)
+    key = kg.next()
+    ciphertext = aristocrat.encrypt(plaintext)
 
     print(ciphertext)
     print("\t--", author)
     input("\n")
     print(plaintext)
+    print("Key:", kg.current)
     print('\n'*4)

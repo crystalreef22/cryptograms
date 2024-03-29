@@ -1,5 +1,9 @@
-# I use macos :(
+# Ignore program storage files
+currentQuote
 
+# quoteList.json # required due to bad code
+
+# I use macos :(
 .DS_Store
 
 # Byte-compiled / optimized / DLL files

@@ -43,8 +43,8 @@ class AristocratEncoder(Encoder):
         plaintextL = list(plaintext.upper())
         ciphertextL = plaintextL
         for i in range(len(ciphertextL)):
-            for j in range(len(letters)):
-                if plaintextL[i] == letters[j]:
+            for j in range(len(self.LETTERS)):
+                if plaintextL[i] == self.LETTERS[j]:
                     ciphertextL[i] = key[j]
                     break
         return "".join(ciphertextL)
@@ -85,8 +85,8 @@ class PatristocratEncoder(Encoder):
         plaintextL = list(self.format(plaintext).upper())
         ciphertextL = plaintextL
         for i in range(len(ciphertextL)):
-            for j in range(len(letters)):
-                if plaintextL[i] == letters[j]:
+            for j in range(len(self.LETTERS)):
+                if plaintextL[i] == self.LETTERS[j]:
                     ciphertextL[i] = key[j]
                     break
         return "".join(ciphertextL)
