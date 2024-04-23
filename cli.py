@@ -8,7 +8,7 @@ import txtEncoder as te
 qg.init() #Ideally, I should make this a class
 
 aristocrat = te.AristocratEncoder()
-kg = te.keyWordGenerator("./commonWordList.txt")
+kg = te.keyWordGenerator("storage/commonWordList.txt")
 
 while True:
     q = qg.getNextQuote()

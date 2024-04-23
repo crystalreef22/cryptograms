@@ -2,8 +2,8 @@ import requests
 import json
 import signal, sys
 
-QUOTE_FILE = "quoteList.json"
-CURRENT_QUOTE_FILE = "currentQuote"
+QUOTE_FILE = "storage/quoteList.json"
+CURRENT_QUOTE_FILE = "storage/currentQuote"
 
 currentQuoteIndex = -1
 quotes = []

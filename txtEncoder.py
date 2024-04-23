@@ -7,13 +7,13 @@ class Encoded:
         self.plaintext = plaintext
         self.encoder = encoder
         self.formattedPlaintext = self.encoder.format(plaintext)
-        self.ciphertext = self.encoder.encrypt(ciphertext)
+        self.ciphertext = self.encoder.encrypt(plaintext)
 
     def reencode(self):
         '''Runs the encoder on the plaintext again'''
 
-        self.formattedPlaintext = self.encoder.format(plaintext)
-        self.ciphertext = self.encoder.encrypt(ciphertext)
+        self.formattedPlaintext = self.encoder.format(self.plaintext)
+        self.ciphertext = self.encoder.encrypt(self.plaintext)
 
 
 
@@ -72,7 +72,7 @@ class PatristocratEncoder(Encoder):
 
         return ''.join(p)
     
-    def encrypt(self, plaintext, key = None):
+    def encrypt(self, plaintext, key = None, keyType = "K1"):
         if key == None:
             key = random.sample(self.LETTERS, len(self.LETTERS))
         else:

@@ -2,15 +2,11 @@
     "files": [
         "README.md",
         "cli.py",
-        "commonWordList.txt",
         "cryptograms.pyproject",
         "keyWordDownload.sh",
         "main.py",
-        "main.py",
-        "main.qml",
         "main.qml",
         "quoteGenerator.py",
-        "quoteList.json",
         "txtEncoder.py"
     ]
 }
